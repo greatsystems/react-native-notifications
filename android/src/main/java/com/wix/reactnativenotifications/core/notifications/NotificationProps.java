@@ -1,5 +1,6 @@
 package com.wix.reactnativenotifications.core.notifications;
 
+import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -21,6 +22,7 @@ public class NotificationProps {
     private static final String SOUND = "sound";
     private static final String TAG = "tag";
     private static final String COLOR = "color";
+    private static final String PRIORITY = "priority";
 
     private static final String DATA = "data";
 
@@ -109,6 +111,23 @@ public class NotificationProps {
     @Nullable
     public Uri getSound() {
         return rawResourceUriFromString(mProperties.getString(SOUND));
+    }
+
+    @Nullable
+    public int getPriority() {
+        switch (mProperties.getString(PRIORITY)){
+            case "high":
+                return Notification.PRIORITY_HIGH;
+            case "low":
+                return Notification.PRIORITY_LOW;
+            case "max":
+                return Notification.PRIORITY_MAX;
+            case "min":
+                return Notification.PRIORITY_MIN;
+            default:
+            case "default":
+                return Notification.PRIORITY_DEFAULT;
+        }
     }
 
     @Nullable
